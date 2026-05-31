@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#fff"/>
+  <g fill="#000">
+    <text x="96" y="275" font-family="Georgia, 'Times New Roman', serif" font-size="58" font-weight="400">Raymond Zhang</text>
+    <text x="98" y="333" font-family="Georgia, 'Times New Roman', serif" font-size="27" font-weight="400">UX / Spatial / Product Design</text>
+    <text x="98" y="384" font-family="Georgia, 'Times New Roman', serif" font-size="20" font-weight="400" fill-opacity="0.58">Interfaces, interiors, and spatial systems.</text>
+  </g>
+  <g transform="translate(98 492)">
+    <rect width="7" height="7" fill="#4e6498"/>
+    <rect x="12" width="7" height="7" fill="#96b4c9"/>
+    <rect x="24" width="7" height="7" fill="#2c695a"/>
+    <rect x="36" width="7" height="7" fill="#9ab9a6"/>
+    <rect x="48" width="7" height="7" fill="#811c35"/>
+    <rect x="60" width="7" height="7" fill="#e3b09b"/>
+    <rect x="72" width="7" height="7" fill="#5d3833"/>
+    <rect x="84" width="7" height="7" fill="#a86a5d"/>
+    <rect x="96" width="7" height="7" fill="#899498"/>
+    <rect x="108" width="7" height="7" fill="#333230"/>
+    <rect x="120" width="7" height="7" fill="#616f74"/>
+    <rect x="132" width="7" height="7" fill="#f2b573"/>
+  </g>
+</svg>
