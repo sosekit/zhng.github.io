@@ -214,6 +214,24 @@
 		<img alt="" loading="lazy" decoding="async">
 	</div>
 	<script>
+		const cleanTrackingParams = () => {
+			const url = new URL(window.location.href);
+			let changed = false;
+
+			Array.from(url.searchParams.keys()).forEach((key) => {
+				if (key.toLowerCase().startsWith("utm_") || key.toLowerCase() === "fbclid") {
+					url.searchParams.delete(key);
+					changed = true;
+				}
+			});
+
+			if (changed) {
+				window.history.replaceState({}, "", `${url.pathname}${url.search}${url.hash}`);
+			}
+		};
+
+		cleanTrackingParams();
+
 		const IMAGE_VERSION = "2026-05-29-resaved";
 		const versionedImage = (src) => `${src}?v=${IMAGE_VERSION}`;
 
