@@ -49,6 +49,7 @@
 
 html {
 	background: var(--paper);
+	background-color: var(--paper);
 	overflow-anchor: none;
 	scroll-behavior: smooth;
 }
@@ -56,6 +57,7 @@ html {
 body {
 	margin: 0;
 	background: var(--paper);
+	background-color: var(--paper);
 	color: var(--ink);
 	font-family: "Marist", Georgia, "Times New Roman", serif;
 	font-size: 13px;
@@ -67,13 +69,21 @@ body {
 }
 
 main,
+.site-shell,
 .portfolio-index,
 .intro-gate,
 .home-intro,
 .selected-work-index,
 .archive-index,
-.project-page {
+.personal-works-index,
+.minimal-footer,
+.project-page,
+.work-detail-panel,
+.mobile-work-panel,
+.mobile-personal-panel,
+.mobile-personal-panel-inner {
 	background: var(--paper);
+	background-color: var(--paper);
 }
 
 a {
