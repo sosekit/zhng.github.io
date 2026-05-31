@@ -1,0 +1,48 @@
+{
+  "featuredProjects": [
+    {
+      "title": "LinkLog",
+      "slug": "linklog",
+      "subtitle": "Service dashboard for community-based reporting",
+      "year": "2026",
+      "role": "UX Research, Service Design, Prototyping, Front-End Prototype",
+      "tools": "Figma, HTML, CSS, JavaScript",
+      "methods": "Workflow mapping, service blueprinting, usability testing, prototyping",
+      "context": "A browser-based service dashboard prototype for OACAO's Links2Wellbeing program.",
+      "outcome": "Clearer onboarding, local-file guidance, and de-identified reporting flows."
+    },
+    {
+      "title": "Sparkbook",
+      "slug": "sparkbook",
+      "subtitle": "Personal landmarks app for curated social discovery",
+      "year": "2026",
+      "role": "UX Designer",
+      "tools": "Figma",
+      "methods": "Wireframing, user flows, prototyping, usability feedback",
+      "context": "A mobile UX project exploring how people save and share meaningful places.",
+      "outcome": "Clearer list creation, discovery, and sharing flows."
+    },
+    {
+      "title": "Muse",
+      "slug": "muse",
+      "subtitle": "Mobile app research and usability testing",
+      "year": "2025",
+      "role": "UX Researcher, Product Designer",
+      "tools": "Figma",
+      "methods": "User interviews, affinity diagramming, personas, usability testing, prototyping",
+      "context": "A mobile UX research and design project developed from concept through prototype.",
+      "outcome": "Research findings translated into clearer product decisions."
+    },
+    {
+      "title": "Alcoves",
+      "slug": "alcoves",
+      "subtitle": "Physical UX and service design for personalized comfort",
+      "year": "2024",
+      "role": "Spatial Designer, UX Researcher",
+      "tools": "AutoCAD, Rhino 3D, physical prototyping",
+      "methods": "Material research, comfort research, prototyping, observational feedback",
+      "context": "A modular seating system exploring personalized thermal comfort.",
+      "outcome": "A spatial UX study connecting comfort, control, and environmental experience."
+    }
+  ]
+}
