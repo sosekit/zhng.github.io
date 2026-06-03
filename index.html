@@ -517,6 +517,11 @@
 				year: "2026",
 				summary: "Sparkbook is a mobile app concept for saving, organizing, and sharing meaningful places. It explores how personal landmarks, curated lists, and close-circle sharing can make location-based discovery feel more intentional and personal.",
 				marker: "#2c695a",
+				brandImage: {
+					src: "images/projects/sparkbook/sparkbook-logo.png",
+					alt: "Sparkbook logo",
+					width: "min(38%, 11rem)"
+				},
 				meta: [
 					["Role", "UX Designer / UX Researcher"],
 					["Tools", "Figma, Miro, MS Teams"],
@@ -587,17 +592,7 @@
 						]
 					},
 					{
-						label: "Design response",
-						body: "Sparkbook focused on making place-saving feel personal, organized, and low-friction.",
-						insights: [
-							["Create a Spark", "A clear flow for saving a place with optional context."],
-							["Spark Lists", "A structure for grouping places around trips, moods, interests, or personal routines."],
-							["Audience controls", "Sharing options designed around close friends and selected visibility."],
-							["Navigation refinement", "A clearer home structure, stronger create action, and more visible saved/list states."]
-						]
-					},
-					{
-						label: "System + IA",
+						label: "System + structure",
 						ia: {
 							userGroups: "Place savers · Close friends · List creators · Casual discoverers",
 							coreObjects: "Place · Spark · Spark list · Saved item · Category · Audience group · Shared recommendation",
@@ -616,6 +611,39 @@
 								"Sharing is based on selected audiences rather than public-by-default posting."
 							]
 						}
+					},
+					{
+						label: "Style Tile / Visual Direction",
+						collapsible: true,
+						body: [
+							"The style tile translated Sparkbook’s product direction into a visual system: personal, taste-driven, curated, social, and easy to scan. It helped define how color, iconography, hierarchy, and tone would support discovery without making the app feel like a generic public review platform.",
+							"Communication goal: Sparkbook should feel like a well-travelled companion: informed enough to guide someone through a new city, personal enough to understand taste, and selective enough to help users invite close friends into meaningful places.",
+							"Keywords: Personalized · Taste-driven · Curated · Social · Expressive · Confident · Discoverable · Insightful · Effortless · Organized · Intuitive · Modern · Clean · Engaging · Trustworthy",
+							"This direction also responded to usability feedback that the monochromatic icon system made navigation harder to scan. Color became a functional cue for category recognition, not just a branding layer."
+						],
+						insights: [
+							["Color as navigation", "Color should help users scan categories, states, and actions quickly. It should not be used as decoration only."],
+							["Curated, not crowded", "The interface should feel expressive and social, but still organized enough for users to understand where places, sparks, and lists live."],
+							["Personal before public", "The visual language should feel close-circle and taste-driven, not like a generic review platform."],
+							["Clear action hierarchy", "Primary actions like creating a spark, saving, adding to a list, and exploring lists should be visually obvious."],
+							["Friendly but trustworthy", "The app should feel personal and engaging while still being clean, modern, and reliable."]
+						],
+						image: {
+							src: "images/projects/sparkbook/finalized-style-tile.jpg",
+							alt: "Sparkbook finalized style tile with logo, typography, colours, graphic elements, buttons, iconography, and map theme",
+							width: "min(82%, 24rem)",
+							caption: "Style tile defining Sparkbook’s visual tone, category color logic, and interaction hierarchy."
+						}
+					},
+					{
+						label: "Design response",
+						body: "Sparkbook focused on making place-saving feel personal, organized, and low-friction.",
+						insights: [
+							["Create a Spark", "A clear flow for saving a place with optional context."],
+							["Spark Lists", "A structure for grouping places around trips, moods, interests, or personal routines."],
+							["Audience controls", "Sharing options designed around close friends and selected visibility."],
+							["Navigation refinement", "A clearer home structure, stronger create action, and more visible saved/list states."]
+						]
 					},
 					{
 						label: "Prototype flows",
@@ -1001,8 +1029,6 @@
 		const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 		const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 		const introGate = document.querySelector(".intro-gate");
-		let introComplete = false;
-		let introCommitting = false;
 
 		const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
 
@@ -1014,46 +1040,15 @@
 			document.documentElement.style.setProperty("--home-y", `${(24 * (1 - clampedProgress)).toFixed(1)}px`);
 		};
 
-		const commitIntroOneWay = () => {
-			if (introComplete || introCommitting) return;
-
-			introCommitting = true;
-			const beforeTop = portfolioIndex.getBoundingClientRect().top;
-			document.body.classList.add("intro-committing");
-			document.body.classList.add("intro-complete");
-
-			requestAnimationFrame(() => {
-				const afterTop = portfolioIndex.getBoundingClientRect().top;
-				const delta = afterTop - beforeTop;
-				window.scrollBy({ top: delta, left: 0, behavior: "auto" });
-				introComplete = true;
-				setIntroProgress(1);
-
-				requestAnimationFrame(() => {
-					introCommitting = false;
-					document.body.classList.remove("intro-committing");
-				});
-			});
-		};
-
 		const handleIntroScroll = () => {
-			if (introComplete || introCommitting) return;
-
-			if (reduceMotion) {
-				if (window.scrollY > 8) commitIntroOneWay();
-				return;
-			}
-
+			if (!introGate) return;
 			const maxScroll = Math.max(1, introGate.offsetHeight * 0.85);
-			const progress = Math.min(window.scrollY / maxScroll, 1);
+			const progress = reduceMotion ? Math.min(window.scrollY / introGate.offsetHeight, 1) : Math.min(window.scrollY / maxScroll, 1);
 			setIntroProgress(progress);
-
-			const homeTop = portfolioIndex.getBoundingClientRect().top;
-			if (homeTop <= 0.5) commitIntroOneWay();
 		};
 
 		window.addEventListener("scroll", handleIntroScroll, { passive: true });
-		window.addEventListener("hashchange", handleIntroScroll);
+		window.addEventListener("resize", handleIntroScroll);
 		handleIntroScroll();
 
 		const positionFloatingPreview = (event) => {
@@ -1266,7 +1261,27 @@
 			summary.className = "work-detail-summary work-panel-summary";
 			summary.textContent = project.summary;
 
-			workDetailContent.append(header, summary);
+			workDetailContent.appendChild(header);
+
+			if (project.brandImage) {
+				const brandFigure = document.createElement("figure");
+				brandFigure.className = "work-panel-brand-image";
+				if (project.brandImage.width) brandFigure.style.setProperty("--brand-image-width", project.brandImage.width);
+
+				const brandImage = document.createElement("img");
+				brandImage.src = versionedImage(project.brandImage.src);
+				brandImage.alt = project.brandImage.alt;
+				brandImage.loading = "lazy";
+				brandImage.decoding = "async";
+				brandImage.draggable = false;
+				brandImage.addEventListener("contextmenu", (event) => event.preventDefault());
+				brandImage.addEventListener("dragstart", (event) => event.preventDefault());
+				brandFigure.appendChild(brandImage);
+
+				workDetailContent.appendChild(brandFigure);
+			}
+
+			workDetailContent.appendChild(summary);
 
 			if (project.meta) {
 				const meta = document.createElement("dl");
@@ -1321,6 +1336,79 @@
 					label.className = "work-panel-label";
 					label.textContent = section.label;
 					sectionElement.appendChild(label);
+
+					if (section.collapsible) {
+						sectionElement.classList.add("work-panel-section-collapsible");
+						const details = document.createElement("details");
+						details.className = "work-panel-disclosure";
+
+						const summary = document.createElement("summary");
+						summary.className = "work-panel-disclosure-title";
+						summary.textContent = section.label;
+						details.appendChild(summary);
+
+						const content = document.createElement("div");
+						content.className = "work-panel-disclosure-content";
+
+						if (section.body) {
+							const bodies = Array.isArray(section.body) ? section.body : [section.body];
+							bodies.forEach((copy) => {
+								const paragraph = document.createElement("p");
+								paragraph.textContent = copy;
+								content.appendChild(paragraph);
+							});
+						}
+
+						if (section.insights) {
+							const insightList = document.createElement("div");
+							insightList.className = "work-panel-insights";
+							section.insights.forEach(([heading, copy], index) => {
+								const insight = document.createElement("div");
+								insight.className = "work-panel-insight";
+
+								const number = document.createElement("span");
+								number.className = "work-panel-insight-number";
+								number.textContent = String(index + 1).padStart(2, "0");
+
+								const text = document.createElement("p");
+								const strong = document.createElement("strong");
+								strong.textContent = heading;
+								text.append(strong, document.createTextNode(` ${copy}`));
+
+								insight.append(number, text);
+								insightList.appendChild(insight);
+							});
+							content.appendChild(insightList);
+						}
+
+						if (section.image) {
+							const figure = document.createElement("figure");
+							figure.className = "work-panel-image";
+							if (section.image.width) figure.style.setProperty("--panel-image-width", section.image.width);
+
+							const image = document.createElement("img");
+							image.src = versionedImage(section.image.src);
+							image.alt = section.image.alt;
+							image.loading = "lazy";
+							image.decoding = "async";
+							image.draggable = false;
+							image.addEventListener("contextmenu", (event) => event.preventDefault());
+							image.addEventListener("dragstart", (event) => event.preventDefault());
+							figure.appendChild(image);
+
+							if (section.image.caption) {
+								const caption = document.createElement("figcaption");
+								caption.textContent = section.image.caption;
+								figure.appendChild(caption);
+							}
+							content.appendChild(figure);
+						}
+
+						details.appendChild(content);
+						sectionElement.replaceChildren(details);
+						sections.appendChild(sectionElement);
+						return;
+					}
 
 					if (!["afterBody", "afterItems"].includes(section.image?.placement)) appendSectionImage();
 
