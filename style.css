@@ -391,6 +391,7 @@ figure {
 	position: relative;
 	max-width: var(--home-shell);
 	min-height: 100svh;
+	padding-top: 14rem;
 	padding-bottom: 0;
 	overflow-anchor: none;
 	opacity: var(--home-opacity, 0);
@@ -2032,4 +2033,5 @@ h3 {
 		transition: none;
 		transform: rotateX(18deg) rotateY(28deg);
 	}
+
 }
