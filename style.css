@@ -513,6 +513,20 @@ h3 {
 	gap: 0.18rem;
 }
 
+.github-contact-label {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.22rem;
+}
+
+.github-contact-icon {
+	display: block;
+	width: 0.74rem;
+	height: 0.74rem;
+	fill: currentColor;
+	transform: translateY(0.01rem);
+}
+
 .numbered-links sup {
 	margin-right: 0.03rem;
 	font-family: "SF Mono", "SFMono-Regular", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
