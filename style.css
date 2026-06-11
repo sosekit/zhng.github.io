@@ -513,18 +513,12 @@ h3 {
 	gap: 0.18rem;
 }
 
-.github-contact-label {
-	display: inline-flex;
-	align-items: center;
-	gap: 0.22rem;
-}
-
-.github-contact-icon {
+.contact-link-icon {
 	display: block;
-	width: 0.74rem;
-	height: 0.74rem;
+	width: 0.66rem;
+	height: 0.66rem;
 	fill: currentColor;
-	transform: translateY(0.01rem);
+	transform: translateY(0.04rem);
 }
 
 .numbered-links sup {
