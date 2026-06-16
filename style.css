@@ -443,6 +443,30 @@ figure {
 	margin-top: 5.5rem;
 }
 
+.scroll-feel-ready .home-intro,
+.scroll-feel-ready .contact-links,
+.scroll-feel-ready .selected-work-index,
+.scroll-feel-ready .archive-index,
+.scroll-feel-ready .personal-works-index,
+.scroll-feel-ready .minimal-footer {
+	opacity: 0.72;
+	transform: translateY(0.48rem);
+	transition:
+		opacity 620ms cubic-bezier(0.22, 1, 0.36, 1),
+		transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
+	will-change: opacity, transform;
+}
+
+.scroll-feel-ready .home-intro.is-scroll-visible,
+.scroll-feel-ready .contact-links.is-scroll-visible,
+.scroll-feel-ready .selected-work-index.is-scroll-visible,
+.scroll-feel-ready .archive-index.is-scroll-visible,
+.scroll-feel-ready .personal-works-index.is-scroll-visible,
+.scroll-feel-ready .minimal-footer.is-scroll-visible {
+	opacity: 1;
+	transform: translateY(0);
+}
+
 .contact-links {
 	margin-top: 3rem;
 }

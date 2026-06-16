@@ -1041,8 +1041,14 @@
 		const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 		const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 		const introGate = document.querySelector(".intro-gate");
+		const scrollSettleItems = Array.from(document.querySelectorAll(
+			".home-intro, .contact-links, .selected-work-index, .archive-index, .personal-works-index, .minimal-footer"
+		));
 
 		const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+		let targetIntroProgress = 0;
+		let renderedIntroProgress = 0;
+		let introProgressFrame = null;
 
 		const setIntroProgress = (progress) => {
 			const clampedProgress = clamp(progress, 0, 1);
@@ -1052,16 +1058,56 @@
 			document.documentElement.style.setProperty("--home-y", `${(24 * (1 - clampedProgress)).toFixed(1)}px`);
 		};
 
+		const renderIntroProgress = () => {
+			const delta = targetIntroProgress - renderedIntroProgress;
+			renderedIntroProgress += delta * 0.18;
+			setIntroProgress(renderedIntroProgress);
+
+			if (Math.abs(delta) > 0.002) {
+				introProgressFrame = requestAnimationFrame(renderIntroProgress);
+			} else {
+				renderedIntroProgress = targetIntroProgress;
+				setIntroProgress(renderedIntroProgress);
+				introProgressFrame = null;
+			}
+		};
+
 		const handleIntroScroll = () => {
 			if (!introGate) return;
 			const maxScroll = Math.max(1, introGate.offsetHeight * 0.85);
 			const progress = reduceMotion ? Math.min(window.scrollY / introGate.offsetHeight, 1) : Math.min(window.scrollY / maxScroll, 1);
-			setIntroProgress(progress);
+			targetIntroProgress = clamp(progress, 0, 1);
+
+			if (reduceMotion) {
+				renderedIntroProgress = targetIntroProgress;
+				setIntroProgress(renderedIntroProgress);
+				return;
+			}
+
+			if (!introProgressFrame) {
+				introProgressFrame = requestAnimationFrame(renderIntroProgress);
+			}
 		};
 
 		window.addEventListener("scroll", handleIntroScroll, { passive: true });
 		window.addEventListener("resize", handleIntroScroll);
 		handleIntroScroll();
+
+		if (!reduceMotion && "IntersectionObserver" in window) {
+			document.body.classList.add("scroll-feel-ready");
+			const settleObserver = new IntersectionObserver((entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add("is-scroll-visible");
+					}
+				});
+			}, {
+				threshold: 0.08,
+				rootMargin: "0px 0px -10% 0px"
+			});
+
+			scrollSettleItems.forEach((item) => settleObserver.observe(item));
+		}
 
 		const positionFloatingPreview = (event) => {
 			const previewWidth = 190;
