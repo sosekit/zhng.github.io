@@ -995,6 +995,11 @@ h3 {
 	max-width: 32rem;
 }
 
+.work-panel-section-divider {
+	border-top: 1px solid rgba(0, 0, 0, 0.06);
+	padding-top: 1.2rem;
+}
+
 .work-panel-label {
 	color: var(--ink);
 	font-size: 0.62rem;
@@ -1133,6 +1138,55 @@ h3 {
 	text-align: center;
 }
 
+.work-panel-carousel {
+	display: grid;
+	grid-auto-columns: clamp(7.8rem, 34vw, 10.8rem);
+	grid-auto-flow: column;
+	gap: 1px;
+	margin-top: 0.95rem;
+	overflow-x: auto;
+	overflow-y: hidden;
+	padding: 0 0 0.7rem;
+	scroll-behavior: smooth;
+	scroll-snap-type: x proximity;
+	-webkit-overflow-scrolling: touch;
+}
+
+.work-panel-carousel::-webkit-scrollbar {
+	height: 0.28rem;
+}
+
+.work-panel-carousel::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+.work-panel-carousel::-webkit-scrollbar-thumb {
+	background: rgba(0, 0, 0, 0.12);
+}
+
+.work-panel-carousel-frame {
+	display: grid;
+	gap: 0.4rem;
+	margin: 0;
+	scroll-snap-align: start;
+}
+
+.work-panel-carousel-frame img {
+	display: block;
+	width: 100%;
+	height: clamp(13.5rem, 42vh, 18rem);
+	object-fit: contain;
+	object-position: top center;
+	user-select: none;
+	-webkit-user-select: none;
+}
+
+.work-panel-carousel-frame figcaption {
+	color: var(--faint);
+	font-size: 0.58rem;
+	line-height: 1.45;
+}
+
 .work-panel-video {
 	width: min(74%, 18rem);
 	margin: 0.75rem auto 0.1rem;
@@ -1188,6 +1242,61 @@ h3 {
 	gap: 0.24rem;
 	margin: 0;
 	padding-left: 1rem;
+}
+
+.persona-card-grid {
+	display: grid;
+	gap: 0.85rem;
+	margin-top: 0.2rem;
+}
+
+.persona-card {
+	display: grid;
+	grid-template-columns: 3rem 1fr;
+	gap: 0.82rem;
+	align-items: start;
+}
+
+.persona-card-icon {
+	display: block;
+	width: 3rem;
+	height: 3rem;
+	object-fit: contain;
+	user-select: none;
+	-webkit-user-select: none;
+}
+
+.persona-card-content {
+	display: grid;
+	gap: 0.24rem;
+	min-width: 0;
+}
+
+.persona-card-title {
+	color: var(--text);
+	font-size: 0.72rem;
+	line-height: 1.35;
+	margin: 0;
+}
+
+.persona-card-age,
+.persona-card-description,
+.persona-card-pain,
+.persona-shared-insight {
+	color: var(--muted);
+	font-size: 0.66rem;
+	line-height: 1.5;
+	margin: 0;
+}
+
+.persona-card-age {
+	color: var(--faint);
+	font-variant-numeric: tabular-nums;
+}
+
+.persona-shared-insight {
+	margin-top: 0.15rem;
+	color: rgba(0, 0, 0, 0.66);
 }
 
 .work-panel-ia {
@@ -1797,6 +1906,15 @@ h3 {
 	.mobile-work-panel.is-visible {
 		opacity: 1;
 		transform: translateY(0);
+	}
+
+	.work-panel-carousel {
+		grid-auto-columns: minmax(7.2rem, 44%);
+		gap: 1px;
+	}
+
+	.work-panel-carousel-frame img {
+		height: clamp(12rem, 46vh, 16rem);
 	}
 
 	.mobile-personal-panel {

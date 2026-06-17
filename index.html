@@ -135,12 +135,12 @@
 						<time datetime="2026">2026</time>
 					</button>
 
-					<button class="work-index-row" type="button" data-work="sparkbook" aria-expanded="false" aria-controls="work-detail-panel">
-						<span class="work-marker" style="--marker-color: #2c695a;" aria-hidden="true"></span>
+					<button class="work-index-row" type="button" data-work="sparks" aria-expanded="false" aria-controls="work-detail-panel">
+						<span class="work-marker" style="--marker-color: #4e6498;" aria-hidden="true"></span>
 						<span class="work-main">
-							<strong>Sparkbook</strong>
+							<strong>Sparks</strong>
 							<em class="work-discipline">Mobile UX / App Design / Interaction Design</em>
-							<small>Personal landmarks app for curated social discovery.</small>
+							<small>Mobile UX project for saving meaningful places with personal context.</small>
 						</span>
 						<time datetime="2026">2026</time>
 					</button>
@@ -257,8 +257,23 @@
 
 		cleanTrackingParams();
 
-		const IMAGE_VERSION = "2026-05-29-resaved";
-		const versionedImage = (src) => `${src}?v=${IMAGE_VERSION}`;
+			const IMAGE_VERSION = "2026-06-16-performance";
+			const versionedImage = (src) => `${src}?v=${IMAGE_VERSION}`;
+			const versionedSrcset = (srcset) => srcset
+				.split(",")
+				.map((candidate) => {
+					const [src, ...descriptors] = candidate.trim().split(/\s+/);
+					return `${versionedImage(src)} ${descriptors.join(" ")}`.trim();
+				})
+				.join(", ");
+			const applyImageMetadata = (image, source) => {
+				if (source.intrinsicWidth && source.intrinsicHeight) {
+					image.width = source.intrinsicWidth;
+					image.height = source.intrinsicHeight;
+				}
+				if (source.sizes) image.sizes = source.sizes;
+				if (source.srcset) image.srcset = versionedSrcset(source.srcset);
+			};
 
 		const archiveItems = [
 			{
@@ -266,37 +281,45 @@
 				descriptor: "Showroom photography / Furniture Staging",
 				location: "Paris, France",
 				year: "2024",
-				markerColor: "#899498",
-				image: "images/archive/gallery-patrick-seguin.jpg",
-				alt: "Gallery Patrick Seguin showroom photography"
-			},
+					markerColor: "#899498",
+					image: "images/archive/gallery-patrick-seguin.jpg",
+					alt: "Gallery Patrick Seguin showroom photography",
+					intrinsicWidth: 900,
+					intrinsicHeight: 675
+				},
 			{
 				title: "Michael London Design",
 				descriptor: "Interior Architecture / Design Internship",
 				location: "Toronto, Canada",
 				year: "2023–2024",
-				markerGradient: "linear-gradient(135deg, #616f74 0%, #7facc6 55%, #e2e7dc 100%)",
-				image: "images/archive/michael-london-design.jpg",
-				alt: "Michael London Design spatial documentation"
-			},
+					markerGradient: "linear-gradient(135deg, #616f74 0%, #7facc6 55%, #e2e7dc 100%)",
+					image: "images/archive/michael-london-design.jpg",
+					alt: "Michael London Design spatial documentation",
+					intrinsicWidth: 900,
+					intrinsicHeight: 675
+				},
 			{
 				title: "Interior Design Show Toronto",
 				descriptor: "Selected exhibitor / Installation experience",
 				location: "Toronto, Canada",
 				year: "2024",
-				markerGradient: "linear-gradient(135deg, #f2b573 0%, #d15c32 55%, #f7cc9d 100%)",
-				image: "images/archive/ids-toronto.jpg",
-				alt: "Interior Design Show Toronto exhibition installation"
-			},
+					markerGradient: "linear-gradient(135deg, #f2b573 0%, #d15c32 55%, #f7cc9d 100%)",
+					image: "images/archive/ids-toronto.jpg",
+					alt: "Interior Design Show Toronto exhibition installation",
+					intrinsicWidth: 900,
+					intrinsicHeight: 675
+				},
 			{
 				title: "TMU Year End Show: Peak",
 				descriptor: "Installation / Light and Material Design",
 				location: "Toronto, Canada",
 				year: "2024",
-				markerColor: "#69372b",
-				image: "images/archive/tmu-year-end-peak.jpg",
-				alt: "TMU Year End Show Peak installation"
-			}
+					markerColor: "#69372b",
+					image: "images/archive/tmu-year-end-peak.jpg",
+					alt: "TMU Year End Show Peak installation",
+					intrinsicWidth: 900,
+					intrinsicHeight: 675
+				}
 		];
 
 		const personalWorks = [
@@ -304,9 +327,13 @@
 				title: "Apples and Peaches",
 				year: "2023",
 				markerGradient: "linear-gradient(135deg, #811c35 0%, #e3b09b 100%)",
-				image: "images/personal/painted-fruit-study.jpeg",
-				alt: "Apples and peaches painting across an open sketchbook",
-				aspect: "4 / 3",
+					image: "images/personal/painted-fruit-study.jpeg",
+					alt: "Apples and peaches painting across an open sketchbook",
+					intrinsicWidth: 1400,
+					intrinsicHeight: 1038,
+					srcset: "images/personal/painted-fruit-study-700.jpeg 700w, images/personal/painted-fruit-study.jpeg 1400w",
+					sizes: "(max-width: 780px) 92vw, 320px",
+					aspect: "4 / 3",
 				imageScale: "1.14",
 				size: "half"
 			},
@@ -314,29 +341,39 @@
 				title: "7 Rue du Perche",
 				year: "2024",
 				markerColor: "#899498",
-				image: "images/personal/7-rue-du-perche.jpg",
-				alt: "Architectural elevation drawing of 7 Rue du Perche in Paris",
-				aspect: "2 / 3",
+					image: "images/personal/7-rue-du-perche.jpg",
+					alt: "Architectural elevation drawing of 7 Rue du Perche in Paris",
+					intrinsicWidth: 838,
+					intrinsicHeight: 1295,
+					aspect: "2 / 3",
 				imageFit: "contain",
 				size: "half"
 			},
 			{
 				title: "Takamatsu Facade Sketch",
 				year: "2025",
-				markerGradient: "linear-gradient(135deg, #616f74 0%, #b5b5af 100%)",
-				image: "images/personal/takamatsu-architecture-sketch.png",
-				alt: "Architectural line sketch of buildings in Takamatsu",
-				aspect: "4 / 3",
+					markerGradient: "linear-gradient(135deg, #616f74 0%, #b5b5af 100%)",
+					image: "images/personal/takamatsu-architecture-sketch.jpg",
+					alt: "Architectural line sketch of buildings in Takamatsu",
+					intrinsicWidth: 1400,
+					intrinsicHeight: 1017,
+					srcset: "images/personal/takamatsu-architecture-sketch-700.jpg 700w, images/personal/takamatsu-architecture-sketch.jpg 1400w",
+					sizes: "(max-width: 780px) 92vw, 320px",
+					aspect: "4 / 3",
 				imageScale: "1.07",
 				size: "half"
 			},
 			{
 				title: "Shanghai Facade Study",
 				year: "2025",
-				markerColor: "#899498",
-				image: "images/personal/shanghai-architecture-sketch.png",
-				alt: "Panoramic architectural line sketch of a Shanghai facade",
-				aspect: "21 / 8",
+					markerColor: "#899498",
+					image: "images/personal/shanghai-architecture-sketch.jpg",
+					alt: "Panoramic architectural line sketch of a Shanghai facade",
+					intrinsicWidth: 1800,
+					intrinsicHeight: 697,
+					srcset: "images/personal/shanghai-architecture-sketch-900.jpg 900w, images/personal/shanghai-architecture-sketch.jpg 1800w",
+					sizes: "(max-width: 780px) 92vw, 680px",
+					aspect: "21 / 8",
 				size: "wide"
 			},
 			{
@@ -353,9 +390,13 @@
 				title: "Linea Lamp",
 				year: "2022",
 				markerColor: "#616f74",
-				image: "images/personal/linea-lamp.jpg",
-				alt: "Technical line drawing of the Linea Lamp design",
-				aspect: "2262 / 1611",
+					image: "images/personal/linea-lamp.jpg",
+					alt: "Technical line drawing of the Linea Lamp design",
+					intrinsicWidth: 1400,
+					intrinsicHeight: 997,
+					srcset: "images/personal/linea-lamp-700.jpg 700w, images/personal/linea-lamp.jpg 1400w",
+					sizes: "(max-width: 780px) 92vw, 420px",
+					aspect: "2262 / 1611",
 				imageFit: "contain",
 				size: "medium-left"
 			}
@@ -523,17 +564,12 @@
 					}
 				]
 			},
-			sparkbook: {
-				title: "Sparkbook",
+			sparks: {
+				title: "Sparks",
 				discipline: "Mobile UX / App Design / Interaction Design",
 				year: "2026",
-				summary: "Sparkbook is a mobile app concept for saving, organizing, and sharing meaningful places. It explores how personal landmarks, curated lists, and close-circle sharing can make location-based discovery feel more intentional and personal.",
-				marker: "#2c695a",
-				brandImage: {
-					src: "images/projects/sparkbook/sparkbook-logo.png",
-					alt: "Sparkbook logo",
-					width: "min(38%, 11rem)"
-				},
+				summary: "Sparks is a mobile UX project for saving, organizing, and revisiting meaningful places through trusted recommendations, personal context, and curated discovery. The app helps users capture the meaning behind a place, not just the location.",
+				marker: "#4e6498",
 				meta: [
 					["Role", "UX Designer / UX Researcher"],
 					["Tools", "Figma, Miro, MS Teams"],
@@ -543,161 +579,239 @@
 				],
 				sections: [
 					{
+						label: "Product direction",
+						body: "Sparks connects place, memory, and action. It supports people who want to save meaningful places with context and explore recommendations from people they trust."
+					},
+					{
 						label: "Problem",
 						body: [
-							"People often save places across scattered tools: map pins, screenshots, notes, messages, and memory. These saved places can be useful, but they rarely hold the context of why a place mattered or who it was meant to be shared with.",
-							"Users needed a more personal way to collect meaningful places, organize them into lists, and share them with close friends without turning the experience into a generic public review platform."
+							"People save places across map pins, screenshots, notes, messages, and memory. These saved places can be useful, but they rarely keep the context of why a place mattered.",
+							"Users needed a clearer way to collect meaningful places, organize them into lists, and share recommendations without turning the experience into a generic public review platform."
 						]
 					},
 					{
 						label: "Solution",
-						body: "Sparkbook reframes saved places as personal landmarks. The app lets users create “sparks,” organize them into curated lists, and share selected places with trusted audiences.",
+						body: "Sparks reframes saved places as personal landmarks. Users can create a Spark, add context, organize Sparks into curated lists, and explore trusted recommendations as guided experiences.",
 						items: [
-							"Saving meaningful places as sparks",
-							"Creating and organizing spark lists",
-							"Category-based discovery",
-							"Close-circle sharing",
-							"Audience controls",
-							"Bookmark and saved-list interactions",
-							"Mobile-first navigation patterns"
+							"Create place-based Sparks with photos, captions, and location context",
+							"Build Spark Lists around trips, moods, routines, or recommendations",
+							"Explore saved lists through guided routes",
+							"Use audience controls for selective sharing",
+							"Return to meaningful places with clearer saved and bookmark states"
 						]
 					},
 					{
-						label: "Research / Discovery",
-						body: "The project explored how users remember places, plan visits, and share recommendations with people they trust. The design process focused on reducing friction in saving and organizing while keeping the emotional context of a place intact.",
-						items: [
-							"How people save places today",
-							"Why certain places feel meaningful",
-							"How recommendations are shared between friends",
-							"How users organize lists and categories",
-							"Where mobile navigation caused confusion"
-						]
+						dividerBefore: true,
+						label: "Target users",
+						body: "Two proto-personas shaped the redesign:",
+						personaCards: [
+							{
+								name: "NAT",
+								title: "The Urban Explorer",
+								age: "21",
+								icon: "images/projects/sparks/nat-persona.png",
+								alt: "Black and white illustrated icon for NAT, the urban explorer persona",
+								intrinsicWidth: 256,
+								intrinsicHeight: 256,
+								description: "New to a city or visiting temporarily. Wants trusted, personal recommendations instead of generic tourist content.",
+								painPoint: "Recommendations from friends or creators are scattered and hard to use in the moment."
+							},
+							{
+								name: "JEN",
+								title: "The Travelling Creator",
+								age: "24",
+								icon: "images/projects/sparks/jen-persona.png",
+								alt: "Black and white illustrated icon for JEN, the travelling creator persona",
+								intrinsicWidth: 256,
+								intrinsicHeight: 256,
+								description: "A local, traveller, or city enthusiast who intentionally collects meaningful places and wants to share them with others.",
+								painPoint: "Existing platforms make it hard to connect content, place, and personal context in a lasting way."
+							}
+						],
+						sharedInsight: "Both users need a way to connect place, memory, and action, either by following trusted recommendations or creating meaningful lists for others to explore."
 					},
 					{
-						label: "User persona",
-						persona: {
-							title: "The Intentional Place Saver",
-							profile: "A mobile-first user who collects meaningful places through screenshots, map pins, notes, and recommendations from close friends. They care less about public reviews and more about remembering why a place mattered.",
-							need: "A lightweight way to save places with personal context and organize them into lists they can revisit or share selectively.",
-							behaviors: [
-								"Saves places from conversations, trips, social posts, and recommendations",
-								"Uses map pins, screenshots, notes, or messages as temporary storage",
-								"Creates informal lists for future plans, moods, trips, or routines",
-								"Shares recommendations with close friends rather than a public audience"
-							],
-							painPoints: [
-								"Saved places become scattered across different apps",
-								"Map pins do not explain why a place was saved",
-								"List-making can feel too rigid or time-consuming",
-								"Public review platforms feel impersonal"
-							],
-							designImplication: "Sparkbook needed to make place-saving feel personal, fast, and selective: a system for remembering why a place matters, not just where it is."
-						}
+						label: "Research / usability feedback",
+						body: "Peer usability testing showed that the original prototype had a strong concept, but several parts of the flow did not match user expectations.",
+						items: [
+							"List creation was hidden and felt tied to adding a location",
+							"The Explore List CTA was visually buried and easy to miss",
+							"Bookmarks and Lists created a confusing mental model",
+							"Audience toggle states were unclear",
+							"Form state needed to persist across interactions",
+							"Monochrome icons reduced scannability in navigation and map-heavy screens"
+						]
 					},
 					{
 						label: "Key insights",
 						insights: [
-							["Saved places needed context.", "A location alone was not enough. The memory, reason, or recommendation attached to the place made it meaningful."],
-							["List creation needed to feel lightweight.", "Users needed to quickly save and organize without feeling forced into a long form or rigid filing system."],
-							["Audience control shaped comfort.", "Sharing felt more personal when users could decide who saw a spark or list, instead of broadcasting everything publicly."],
-							["Navigation clarity mattered early.", "Users needed to understand the difference between discovering places, creating sparks, saving to lists, and viewing their own archive."]
+							["Saved places needed context.", "A location alone was not enough. The memory, reason, or recommendation attached to the place made it useful."],
+							["Lists needed a clearer home.", "Users needed one place to find saved and created Spark Lists."],
+							["Explore needed to feel active.", "Spark Lists worked best when they became guided discovery experiences rather than static collections."],
+							["Visual cues improved wayfinding.", "Colour and active states helped users scan categories, navigation, and map-heavy screens more quickly."]
 						]
 					},
 					{
 						label: "System + structure",
 						ia: {
-							userGroups: "Place savers · Close friends · List creators · Casual discoverers",
-							coreObjects: "Place · Spark · Spark list · Saved item · Category · Audience group · Shared recommendation",
-							primaryFlows: "Discover place → create spark → add context → save to list → choose audience → share or revisit",
-							navigationModel: "Discover · Create · Lists · Saved · Shared · Profile",
+							userGroups: "Urban explorers · Travelling creators · Close friends · List followers",
+							coreObjects: "Place · Spark · Spark List · Saved list · Category · Audience group · Comment",
+							primaryFlows: "Create a Spark · Create a List · Add to List · Explore a Spark List · Comment",
+							navigationModel: "Home · Create · Your Lists · Explore · Saved · Profile",
 							keyDecisions: [
-								"Treat places as personal landmarks, not generic bookmarks.",
-								"Separate saving from sharing so users can keep personal context private.",
-								"Use lists as flexible containers for trips, moods, routines, and recommendations.",
-								"Make audience control visible before sharing.",
-								"Keep creation lightweight so saving a place does not feel like a long form."
+								"Keep Spark creation separate from List creation.",
+								"Give lists a dedicated place in the navigation.",
+								"Make save, bookmark, and audience states explicit.",
+								"Use category colour as a functional cue.",
+								"Design recovery states for unavailable lists."
 							],
 							systemLogic: [
-								"A Spark can exist independently or belong to one or more lists.",
-								"Lists organize meaning, not just location.",
-								"Sharing is based on selected audiences rather than public-by-default posting."
+								"A Spark can stand alone or belong to one or more Spark Lists.",
+								"Spark Lists can be saved, previewed, explored, and completed.",
+								"Comments add reflection and social context to individual Sparks."
 							]
 						}
 					},
 					{
-						label: "Style Tile / Visual Direction",
-						collapsible: true,
-						body: [
-							"The style tile translated Sparkbook’s product direction into a visual system: personal, taste-driven, curated, social, and easy to scan. It helped define how color, iconography, hierarchy, and tone would support discovery without making the app feel like a generic public review platform.",
-							"Communication goal: Sparkbook should feel like a well-travelled companion: informed enough to guide someone through a new city, personal enough to understand taste, and selective enough to help users invite close friends into meaningful places.",
-							"Keywords: Personalized · Taste-driven · Curated · Social · Expressive · Confident · Discoverable · Insightful · Effortless · Organized · Intuitive · Modern · Clean · Engaging · Trustworthy",
-							"This direction also responded to usability feedback that the monochromatic icon system made navigation harder to scan. Color became a functional cue for category recognition, not just a branding layer."
-						],
-						insights: [
-							["Color as navigation", "Color should help users scan categories, states, and actions quickly. It should not be used as decoration only."],
-							["Curated, not crowded", "The interface should feel expressive and social, but still organized enough for users to understand where places, sparks, and lists live."],
-							["Personal before public", "The visual language should feel close-circle and taste-driven, not like a generic review platform."],
-							["Clear action hierarchy", "Primary actions like creating a spark, saving, adding to a list, and exploring lists should be visually obvious."],
-							["Friendly but trustworthy", "The app should feel personal and engaging while still being clean, modern, and reliable."]
-						],
-						image: {
-							src: "images/projects/sparkbook/finalized-style-tile.jpg",
-							alt: "Sparkbook finalized style tile with logo, typography, colours, graphic elements, buttons, iconography, and map theme",
-							width: "min(82%, 24rem)",
-							caption: "Style tile defining Sparkbook’s visual tone, category color logic, and interaction hierarchy."
-						}
-					},
-					{
+						dividerBefore: true,
 						label: "Design response",
-						body: "Sparkbook focused on making place-saving feel personal, organized, and low-friction.",
+						body: "Based on usability testing, I redesigned Sparks' core flows to make saving, organizing, and revisiting places clearer through category filters, explicit save states, a dedicated Your Lists page, and a standalone Create List flow. Visually, the redesign moved from a mostly monochrome interface toward a more scannable system with colour-coded category cues, stronger CTA hierarchy, clearer active states, and reusable list and card components.",
 						insights: [
-							["Create a Spark", "A clear flow for saving a place with optional context."],
-							["Spark Lists", "A structure for grouping places around trips, moods, interests, or personal routines."],
-							["Audience controls", "Sharing options designed around close friends and selected visibility."],
-							["Navigation refinement", "A clearer home structure, stronger create action, and more visible saved/list states."]
+							["Dedicated Your Lists page", "Centralizes saved and created Spark Lists so users know where lists live."],
+							["Standalone Create List flow", "Lets users create curated collections without starting from a Spark."],
+							["Reusable Add to List component", "Lets users keep building lists from multiple points in the app."],
+							["Stronger Explore Mode CTAs", "Makes guided list exploration more visible and easier to start."]
 						]
 					},
 					{
-						label: "Prototype flows",
-						numbered: [
-							"Discover or view a place",
-							"Create a spark",
-							"Add a spark to a list",
-							"Create a spark list",
-							"Adjust audience or sharing settings",
-							"View saved places and personal lists"
+						label: "Redeveloped Task Flows",
+						body: "The redesigned flows focus on two connected behaviours: creating meaningful place-based content and exploring curated Spark Lists as guided experiences. Together, these flows support the creator who captures and shares places, and the explorer who follows trusted recommendations in the real world.",
+						insights: [
+							["Create a Spark", "This flow supports JEN, the travelling creator. Users start from Home, create a Spark, add or search for a location, write a caption, choose an audience, and decide whether the Spark stays individual or joins a Spark List. If the location does not exist, users can create a new location from the searched name. The flow ends with a clear posted state."],
+							["Create a Spark rationale", "Clearer button affordances, persistent form state, location fallback options, and explicit save or list choices reduce hesitation during creation."],
+							["Explore a Spark List", "This flow supports NAT, the urban explorer. Users open saved Spark Lists, preview a list, start Explore Mode, follow a route to each Spark location, and finish with a checklist-style completion screen for reviewing, following, commenting, or bookmarking."],
+							["Unavailable list recovery", "If a saved Spark List was deleted by the creator, the app shows a recovery state with a similar suggested Spark List that users can preview before starting."],
+							["Explore rationale", "Spark Lists become guided discovery experiences with route-following, progress, recovery states, and post-experience actions."]
+						]
+					},
+					{
+						label: "Low-Fidelity Prototype",
+						body: "Early wireframes were used to test the structure of the create, save, and list exploration flows before moving into visual design.",
+						carousel: [
+							{
+								src: "images/projects/sparks/lofi-home-feed-view.png",
+								alt: "Low-fidelity wireframe of the Sparks home feed view",
+								intrinsicWidth: 360,
+								intrinsicHeight: 800
+							},
+							{
+								src: "images/projects/sparks/lofi-home-map-view.png",
+								alt: "Low-fidelity wireframe of the Sparks home map view",
+								intrinsicWidth: 360,
+								intrinsicHeight: 800
+							},
+							{
+								src: "images/projects/sparks/lofi-add-spark-to-list.png",
+								alt: "Low-fidelity wireframe of adding a Spark to a list",
+								intrinsicWidth: 360,
+								intrinsicHeight: 800
+							},
+							{
+								src: "images/projects/sparks/lofi-create-spark-add-title.png",
+								alt: "Low-fidelity wireframe of the Create Spark caption and audience flow",
+								intrinsicWidth: 360,
+								intrinsicHeight: 800
+							},
+							{
+								src: "images/projects/sparks/lofi-create-spark-gallery-selected.png",
+								alt: "Low-fidelity wireframe of the Create Spark gallery selection flow",
+								intrinsicWidth: 360,
+								intrinsicHeight: 800
+							},
+							{
+								src: "images/projects/sparks/lofi-end-of-experience.png",
+								alt: "Low-fidelity wireframe of the Spark List end of experience screen",
+								intrinsicWidth: 360,
+								intrinsicHeight: 800
+							},
+							{
+								src: "images/projects/sparks/lofi-explore-mode-spark-1.png",
+								alt: "Low-fidelity wireframe of Explore Mode navigation",
+								intrinsicWidth: 360,
+								intrinsicHeight: 800
+							},
+							{
+								src: "images/projects/sparks/lofi-spark-list-preview-location-1.png",
+								alt: "Low-fidelity wireframe of the Spark List preview flow",
+								intrinsicWidth: 360,
+								intrinsicHeight: 800
+							}
+						]
+					},
+					{
+						label: "Key Components",
+						items: [
+							"Spark Cards: display image, title, location, tags, and save state for quick browsing",
+							"Category Filters: help users scan and filter Sparks by type, mood, or activity",
+							"Create Spark Flow: guides users through photo, location, caption, audience, and list assignment",
+							"Create List Flow: gives users a direct way to create curated collections",
+							"Your Lists Page: centralizes saved and created Spark Lists",
+							"Add to List Component: lets users keep building lists from multiple points in the app",
+							"Explore Mode: turns Spark Lists into guided, real-world discovery routes",
+							"Commenting: lets users add reflections, reactions, or memories to a Spark"
+						]
+					},
+					{
+						label: "Feature moments",
+						insights: [
+							["Creating a Spark", "Helps users capture a meaningful place quickly while preserving the context behind it: photo, location, caption, audience, and list assignment."],
+							["Creating a List", "Gives users a direct way to organize Sparks into curated collections instead of hiding list creation inside the Spark flow."],
+							["Spark List Guide", "Turns curated lists into guided discovery experiences with sequencing, route-following, and intentional completion."],
+							["Leaving a Comment", "Adds personal reflection and social context so each Spark feels more meaningful and connected."]
 						]
 					},
 					{
 						label: "Testing + iteration",
-						body: "Feedback focused on navigation clarity, list creation, and whether users understood how sparks differed from generic saved places. Iterations refined the create action, category filters, saved states, and list organization.",
+						body: "The redesign focused on navigation clarity, list creation, form persistence, and whether users understood how Sparks, Lists, bookmarks, and Explore Mode related to each other.",
 						items: [
-							"Users needed a clearer entry point for creating a spark",
-							"Audience settings needed to feel less hidden",
-							"Saved/list states needed stronger visual feedback"
+							"Users needed a clearer entry point for creating lists",
+							"Explore Mode needed stronger visual priority",
+							"Bookmark and list states needed clearer separation",
+							"Audience toggles needed more explicit state changes",
+							"Colour-coded navigation cues improved scannability"
 						]
 					},
 					{
-						label: "Design changes",
+						label: "Key iteration details",
 						items: [
-							"Clarified the primary create action",
-							"Added more visible saved and bookmark states",
-							"Improved category filters",
-							"Refined list creation and add-to-list flows",
-							"Adjusted microcopy around sharing and audience visibility"
+							"Added a dedicated Your Lists page",
+							"Separated Create List from Create Spark",
+							"Introduced a reusable Add to List component",
+							"Clarified category filters and active navigation states",
+							"Made bookmark and save states more explicit",
+							"Added recovery states for unavailable Spark Lists",
+							"Improved CTA hierarchy for Explore Mode and list actions"
 						]
 					},
 					{
+						dividerBefore: true,
 						label: "Takeaways",
 						insights: [
-							["Personal context is the product value.", "Sparkbook became stronger when the design focused less on “places” and more on why those places mattered."],
-							["Social sharing needed restraint.", "The app worked best when sharing felt close, curated, and intentional rather than public by default."],
-							["Simple navigation carried the concept.", "Because the product had several related actions, clearer navigation was essential to making the app feel understandable."]
+							["Context made the product useful.", "The app became stronger when the design focused less on places alone and more on why those places mattered."],
+							["Lists needed to become experiences.", "Spark Lists worked better when they supported exploration, progress, and recovery, not just saving."],
+							["Navigation carried the concept.", "Clearer structure helped users understand the difference between Sparks, Lists, bookmarks, and guided exploration."]
 						]
 					},
 					{
 						label: "Future steps",
-						body: "Future iterations would focus on testing audience controls with users, refining map/list switching, and exploring how location-aware prompts could support discovery without feeling intrusive."
+						body: "Future iterations would focus on testing Explore Mode in real-world contexts, refining map and list switching, and evaluating audience controls with users."
+					},
+					{
+						label: "Why Sparks Works",
+						body: [
+							"Sparks works because each design decision supports a clear user need: capture quickly, remember with context, browse without friction, and return to places with intention.",
+							"Save the place. Keep the context. Revisit with intention."
+						]
 					}
 				]
 			},
@@ -746,6 +860,10 @@
 						image: {
 							src: "images/projects/muse/affinity-map.jpg",
 							alt: "Muse affinity mapping research synthesis on a whiteboard",
+							intrinsicWidth: 1200,
+							intrinsicHeight: 900,
+							srcset: "images/projects/muse/affinity-map-600.jpg 600w, images/projects/muse/affinity-map.jpg 1200w",
+							sizes: "(max-width: 780px) 68vw, 18rem",
 							width: "min(68%, 18rem)",
 							treatment: "whiteWash",
 							placement: "afterItems"
@@ -935,7 +1053,11 @@
 						label: "Typology system",
 						image: {
 							src: "images/projects/alcoves/alcove-iso.png",
-							alt: "Alcoves modular seating typology render"
+							alt: "Alcoves modular seating typology render",
+							intrinsicWidth: 900,
+							intrinsicHeight: 559,
+							srcset: "images/projects/alcoves/alcove-iso-450.png 450w, images/projects/alcoves/alcove-iso.png 900w",
+							sizes: "(max-width: 780px) 72vw, 18rem"
 						},
 						body: [
 							"Alcoves is organized through a typology system: a set of repeatable module arrangements that allow the project to adapt to different interior conditions and social behaviors.",
@@ -991,6 +1113,10 @@
 						image: {
 							src: "images/projects/alcoves/ai-render.jpg",
 							alt: "AI-assisted render exploring Alcoves as a modular interior seating environment",
+							intrinsicWidth: 760,
+							intrinsicHeight: 760,
+							srcset: "images/projects/alcoves/ai-render-380.jpg 380w, images/projects/alcoves/ai-render.jpg 760w",
+							sizes: "(max-width: 780px) 32vw, 8.32rem",
 							width: "min(32%, 8.32rem)",
 							treatment: "monoContrast",
 							placement: "afterBody"
@@ -1132,10 +1258,11 @@
 
 		const showFloatingPreview = (item, event) => {
 			if (!canHover || !item.image) return;
-			floatingPreviewImage.onerror = hideFloatingPreview;
-			floatingPreviewImage.src = versionedImage(item.image);
-			floatingPreviewImage.alt = item.alt;
-			positionFloatingPreview(event);
+				floatingPreviewImage.onerror = hideFloatingPreview;
+				floatingPreviewImage.src = versionedImage(item.image);
+				floatingPreviewImage.alt = item.alt;
+				applyImageMetadata(floatingPreviewImage, item);
+				positionFloatingPreview(event);
 			floatingPreview.classList.add("is-visible");
 		};
 
@@ -1197,29 +1324,29 @@
 				if (item.imageFit) thumb.style.setProperty("--image-fit", item.imageFit);
 				if (item.invertVideo) thumb.classList.add("is-inverted-video");
 
-				if (item.video) {
-					const video = document.createElement("video");
-					video.src = item.video;
-					video.muted = true;
-					video.defaultMuted = true;
-					video.loop = true;
-					video.autoplay = true;
-					video.playsInline = true;
-					video.preload = "metadata";
-					video.playbackRate = 1.25;
-					video.setAttribute("aria-label", item.alt);
-					video.addEventListener("contextmenu", (event) => event.preventDefault());
-					video.addEventListener("dragstart", (event) => event.preventDefault());
+					if (item.video) {
+						const video = document.createElement("video");
+						video.dataset.src = item.video;
+						video.muted = true;
+						video.defaultMuted = true;
+						video.loop = true;
+						video.playsInline = true;
+						video.preload = "none";
+						video.playbackRate = 1.25;
+						video.setAttribute("aria-label", item.alt);
+						video.addEventListener("contextmenu", (event) => event.preventDefault());
+						video.addEventListener("dragstart", (event) => event.preventDefault());
 					video.addEventListener("loadeddata", () => {
 						video.playbackRate = 1.25;
 						video.play().catch(() => {});
 					}, { once: true });
 					thumb.appendChild(video);
 				} else {
-					const image = document.createElement("img");
-					image.src = versionedImage(item.image);
-					image.alt = item.alt;
-					image.loading = "lazy";
+						const image = document.createElement("img");
+						image.src = versionedImage(item.image);
+						image.alt = item.alt;
+						applyImageMetadata(image, item);
+						image.loading = "lazy";
 					image.decoding = "async";
 					image.onerror = () => {
 						image.remove();
@@ -1253,8 +1380,16 @@
 				return card;
 		};
 
-		personalGrid.replaceChildren(...personalWorks.map(renderPersonalCard));
-		mobilePersonalGrid.replaceChildren(...personalWorks.map(renderPersonalCard));
+			personalGrid.replaceChildren(...personalWorks.map(renderPersonalCard));
+			mobilePersonalGrid.replaceChildren(...personalWorks.map(renderPersonalCard));
+
+			const activateDeferredVideos = (root) => {
+				root.querySelectorAll("video[data-src]").forEach((video) => {
+					if (!video.src) video.src = video.dataset.src;
+					video.playbackRate = 1.25;
+					video.play().catch(() => {});
+				});
+			};
 
 		const closeOpenPanels = () => {
 			portfolioIndex.classList.remove("panel-open", "work-open", "personal-open");
@@ -1326,10 +1461,11 @@
 				brandFigure.className = "work-panel-brand-image";
 				if (project.brandImage.width) brandFigure.style.setProperty("--brand-image-width", project.brandImage.width);
 
-				const brandImage = document.createElement("img");
-				brandImage.src = versionedImage(project.brandImage.src);
-				brandImage.alt = project.brandImage.alt;
-				brandImage.loading = "lazy";
+					const brandImage = document.createElement("img");
+					brandImage.src = versionedImage(project.brandImage.src);
+					brandImage.alt = project.brandImage.alt;
+					applyImageMetadata(brandImage, project.brandImage);
+					brandImage.loading = "lazy";
 				brandImage.decoding = "async";
 				brandImage.draggable = false;
 				brandImage.addEventListener("contextmenu", (event) => event.preventDefault());
@@ -1361,6 +1497,7 @@
 				project.sections.forEach((section) => {
 					const sectionElement = document.createElement("section");
 					sectionElement.className = "work-panel-section";
+					if (section.dividerBefore) sectionElement.classList.add("work-panel-section-divider");
 
 					const appendSectionImage = () => {
 						if (!section.image) return;
@@ -1447,6 +1584,7 @@
 							const image = document.createElement("img");
 							image.src = versionedImage(section.image.src);
 							image.alt = section.image.alt;
+							applyImageMetadata(image, section.image);
 							image.loading = "lazy";
 							image.decoding = "async";
 							image.draggable = false;
@@ -1517,6 +1655,38 @@
 
 					if (section.image?.placement === "afterItems") appendSectionImage();
 
+					if (section.carousel) {
+						const carousel = document.createElement("div");
+						carousel.className = "work-panel-carousel";
+						carousel.setAttribute("aria-label", `${section.label} screenshots`);
+
+						section.carousel.forEach((item) => {
+							const frame = document.createElement("figure");
+							frame.className = "work-panel-carousel-frame";
+
+							const image = document.createElement("img");
+							image.src = versionedImage(item.src);
+							image.alt = item.alt;
+							applyImageMetadata(image, item);
+							image.loading = "lazy";
+							image.decoding = "async";
+							image.draggable = false;
+							image.addEventListener("contextmenu", (event) => event.preventDefault());
+							image.addEventListener("dragstart", (event) => event.preventDefault());
+							frame.appendChild(image);
+
+							if (item.caption) {
+								const caption = document.createElement("figcaption");
+								caption.textContent = item.caption;
+								frame.appendChild(caption);
+							}
+
+							carousel.appendChild(frame);
+						});
+
+						sectionElement.appendChild(carousel);
+					}
+
 					if (section.persona) {
 						const persona = document.createElement("div");
 						persona.className = "persona-content";
@@ -1565,6 +1735,59 @@
 						addPersonaGroup("Pain points", section.persona.painPoints);
 						addPersonaGroup("Design implication", section.persona.designImplication);
 						sectionElement.appendChild(persona);
+					}
+
+					if (section.personaCards) {
+						const personaGrid = document.createElement("div");
+						personaGrid.className = "persona-card-grid";
+
+						section.personaCards.forEach((item) => {
+							const card = document.createElement("article");
+							card.className = "persona-card";
+
+							const icon = document.createElement("img");
+							icon.className = "persona-card-icon";
+							icon.src = versionedImage(item.icon);
+							icon.alt = item.alt;
+							applyImageMetadata(icon, item);
+							icon.loading = "lazy";
+							icon.decoding = "async";
+							icon.draggable = false;
+							icon.addEventListener("contextmenu", (event) => event.preventDefault());
+							icon.addEventListener("dragstart", (event) => event.preventDefault());
+
+							const content = document.createElement("div");
+							content.className = "persona-card-content";
+
+							const title = document.createElement("p");
+							title.className = "persona-card-title";
+							title.textContent = `${item.name}: ${item.title}`;
+
+							const age = document.createElement("p");
+							age.className = "persona-card-age";
+							age.textContent = `Age ${item.age}`;
+
+							const description = document.createElement("p");
+							description.className = "persona-card-description";
+							description.textContent = item.description;
+
+							const painPoint = document.createElement("p");
+							painPoint.className = "persona-card-pain";
+							painPoint.textContent = `Pain point: ${item.painPoint}`;
+
+							content.append(title, age, description, painPoint);
+							card.append(icon, content);
+							personaGrid.appendChild(card);
+						});
+
+						sectionElement.appendChild(personaGrid);
+					}
+
+					if (section.sharedInsight) {
+						const sharedInsight = document.createElement("p");
+						sharedInsight.className = "persona-shared-insight";
+						sharedInsight.textContent = `Shared insight: ${section.sharedInsight}`;
+						sectionElement.appendChild(sharedInsight);
 					}
 
 					if (section.ia) {
@@ -1765,20 +1988,22 @@
 			closeOpenPanels();
 			if (isOpen) return;
 
-			if (isMobile) {
-				personalWorksTrigger.setAttribute("aria-expanded", "true");
-				personalTriggerState.textContent = "↗";
-				mobilePersonalPanel.hidden = false;
-				requestAnimationFrame(() => mobilePersonalPanel.classList.add("is-open"));
-				return;
-			}
+				if (isMobile) {
+					personalWorksTrigger.setAttribute("aria-expanded", "true");
+					personalTriggerState.textContent = "↗";
+					mobilePersonalPanel.hidden = false;
+					activateDeferredVideos(mobilePersonalPanel);
+					requestAnimationFrame(() => mobilePersonalPanel.classList.add("is-open"));
+					return;
+				}
 
 			portfolioIndex.classList.add("panel-open", "personal-open");
-			personalWorksTrigger.setAttribute("aria-expanded", "true");
-			personalTriggerState.textContent = "↗";
-			personalGridPanel.hidden = false;
-			requestAnimationFrame(() => personalGridPanel.classList.add("is-visible"));
-		});
+				personalWorksTrigger.setAttribute("aria-expanded", "true");
+				personalTriggerState.textContent = "↗";
+				personalGridPanel.hidden = false;
+				activateDeferredVideos(personalGridPanel);
+				requestAnimationFrame(() => personalGridPanel.classList.add("is-visible"));
+			});
 
 		const resetSwatchProximity = () => {
 			swatchChips.forEach((chip) => {
