@@ -1140,7 +1140,7 @@ h3 {
 
 .work-panel-carousel {
 	display: flex !important;
-	gap: 1px;
+	gap: 2px;
 	align-items: flex-start;
 	max-width: 100%;
 	margin-top: 0.95rem;
@@ -1166,8 +1166,8 @@ h3 {
 
 .work-panel-carousel-frame {
 	display: block;
-	flex: 0 0 clamp(7.2rem, 30vw, 9.5rem);
-	width: clamp(7.2rem, 30vw, 9.5rem);
+	flex: 0 0 auto;
+	width: auto;
 	gap: 0.4rem;
 	margin: 0;
 	scroll-snap-align: start;
@@ -1175,8 +1175,8 @@ h3 {
 
 .work-panel-carousel-frame img {
 	display: block;
-	width: 100% !important;
-	max-width: 100%;
+	width: auto !important;
+	max-width: none;
 	height: clamp(12rem, 36vh, 15.5rem) !important;
 	max-height: 15.5rem;
 	object-fit: contain;
@@ -1915,12 +1915,12 @@ h3 {
 	}
 
 	.work-panel-carousel {
-		gap: 1px;
+		gap: 2px;
 	}
 
 	.work-panel-carousel-frame {
-		flex-basis: clamp(6.6rem, 42vw, 8.5rem);
-		width: clamp(6.6rem, 42vw, 8.5rem);
+		flex-basis: auto;
+		width: auto;
 	}
 
 	.work-panel-carousel-frame img {
