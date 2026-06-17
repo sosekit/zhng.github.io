@@ -128,6 +128,9 @@
 					<button class="work-index-row" type="button" data-work="sparks" aria-expanded="false" aria-controls="work-detail-panel">
 						<span class="work-marker" style="--marker-color: #4e6498;" aria-hidden="true"></span>
 						<span class="work-main">
+							<span class="work-index-thumbnail" aria-hidden="true">
+								<video src="videos/projects/sparks/sparks-index-thumbnail.mp4?v=2026-06-17-hq-compressed" muted loop autoplay playsinline preload="metadata"></video>
+							</span>
 							<strong>Sparks</strong>
 							<em class="work-discipline">Mobile UX / App Design / Interaction Design</em>
 							<small>Mobile UX project for saving meaningful places with personal context.</small>
@@ -812,6 +815,56 @@
 							"Sparks works because each design decision supports a clear user need: capture quickly, remember with context, browse without friction, and return to places with intention.",
 							"Save the place. Keep the context. Revisit with intention."
 						]
+					},
+					{
+						dividerBefore: true,
+						label: "Onboarding feature",
+						body: "The onboarding flow introduces Sparks through a short guided demo, helping users understand how saving, organizing, and exploring places connect before they enter the main experience.",
+						video: {
+							src: "videos/projects/sparks/onboarding-feature-demo.mp4",
+							label: "Sparks onboarding feature demo",
+							crop: "phone",
+							width: "min(52%, 12.5rem)"
+						}
+					},
+							{
+								label: "Create a Spark",
+								body: "Creating a Spark is designed to be fast and guided. Users can upload one or multiple photos, add a location, write a caption, choose who can see it, and save it as an individual Spark or add it to a Spark List.",
+								video: {
+									src: "videos/projects/sparks/create-a-spark-demo.mov?v=transparent-original",
+									label: "Sparks create a Spark feature demo",
+									width: "min(59%, 14.1rem)"
+								}
+							},
+					{
+						label: "Create List",
+						body: "Creating a List gives users a direct way to organize Sparks into curated collections. Instead of being hidden inside the Spark creation flow, the redesigned list feature lets users create, describe, and manage lists independently, making the app feel more flexible and easier to navigate.",
+						video: {
+							src: "videos/projects/sparks/create-list-demo.mp4",
+							label: "Sparks create list feature demo",
+							crop: "phone",
+							width: "min(52%, 12.5rem)"
+						}
+					},
+					{
+						label: "Map exploration feature",
+						body: "Sparks’ launch flow is designed to make discovery feel immediate and intuitive. Users can browse Sparks, create their own, and save memorable places with clear affordances, category cues, and visible bookmark feedback that confirms when an item has been saved.",
+						video: {
+							src: "videos/projects/sparks/map-exploration-feature-demo.mp4",
+							label: "Sparks map exploration feature demo",
+							crop: "phone",
+							width: "min(52%, 12.5rem)"
+						}
+					},
+					{
+						label: "Bookmark feature",
+						body: "The bookmark feature gives users a clear way to save Sparks and return to places later without interrupting browsing or exploration.",
+						video: {
+							src: "videos/projects/sparks/bookmark-feature-demo.mp4",
+							label: "Sparks bookmark feature demo",
+							crop: "phone",
+							width: "min(52%, 12.5rem)"
+						}
 					}
 				]
 			},
@@ -1622,6 +1675,8 @@
 					if (section.video) {
 						const figure = document.createElement("figure");
 						figure.className = "work-panel-video";
+						if (section.video.width) figure.style.setProperty("--panel-video-width", section.video.width);
+						if (section.video.crop) figure.dataset.crop = section.video.crop;
 
 						const video = document.createElement("video");
 						video.src = section.video.src;
