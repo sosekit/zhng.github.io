@@ -115,7 +115,7 @@
 					</li>
 					<li><a href="https://www.linkedin.com/in/zhng/" target="_blank" rel="noopener noreferrer"><sup>3</sup><span>LinkedIn ↗</span></a></li>
 					<li><a href="mailto:rymndzhng@gmail.com"><sup>4</sup><span>Mail ↗</span></a></li>
-					<li><a href="resume/raymond-zhang-resume.pdf" target="_blank" rel="noopener noreferrer"><sup>5</sup><span>Resume ↗</span></a></li>
+					<li><a class="resume-protected-link" href="resume/raymond-zhang-resume.pdf" target="_blank" rel="noopener noreferrer"><sup>5</sup><span>Resume ↗</span></a></li>
 				</ul>
 			</div>
 			</section>
@@ -131,9 +131,6 @@
 							<strong>Sparks</strong>
 							<em class="work-discipline">Mobile UX / App Design / Interaction Design</em>
 							<small>Mobile UX project for saving meaningful places with personal context.</small>
-							<span class="work-index-thumbnail" aria-hidden="true">
-								<video src="videos/projects/sparks/sparks-index-thumbnail.mp4?v=2026-06-17-hq-compressed" muted loop autoplay playsinline preload="metadata"></video>
-							</span>
 						</span>
 						<time datetime="2026">2026</time>
 					</button>
@@ -281,8 +278,8 @@
 		const archiveItems = [
 			{
 				title: "Gallery Patrick Seguin",
-				descriptor: "Showroom photography / Furniture Staging",
-				location: "Paris, France",
+				descriptor: "showroom photography / furniture staging",
+				location: "paris, france",
 				year: "2024",
 					markerColor: "#899498",
 					image: "images/archive/gallery-patrick-seguin.jpg",
@@ -292,8 +289,8 @@
 				},
 			{
 				title: "Michael London Design",
-				descriptor: "Interior Architecture / Design Internship",
-				location: "Toronto, Canada",
+				descriptor: "interior architecture / design internship",
+				location: "toronto, canada",
 				year: "2023–2024",
 					markerGradient: "linear-gradient(135deg, #616f74 0%, #7facc6 55%, #e2e7dc 100%)",
 					image: "images/archive/michael-london-design.jpg",
@@ -302,24 +299,24 @@
 					intrinsicHeight: 675
 				},
 			{
-				title: "Interior Design Show Toronto",
-				descriptor: "Selected exhibitor / Installation experience",
-				location: "Toronto, Canada",
+				title: "Installation: Alcoves",
+				descriptor: "selected exhibitor / installation experience",
+				location: "toronto, canada",
 				year: "2024",
 					markerGradient: "linear-gradient(135deg, #f2b573 0%, #d15c32 55%, #f7cc9d 100%)",
 					image: "images/archive/ids-toronto.jpg",
-					alt: "Interior Design Show Toronto exhibition installation",
+					alt: "Installation Alcoves exhibition installation",
 					intrinsicWidth: 900,
 					intrinsicHeight: 675
 				},
 			{
-				title: "TMU Year End Show: Peak",
-				descriptor: "Installation / Light and Material Design",
-				location: "Toronto, Canada",
+				title: "Installation: Peak",
+				descriptor: "installation / light and material design",
+				location: "toronto, canada",
 				year: "2024",
 					markerColor: "#69372b",
 					image: "images/archive/tmu-year-end-peak.jpg",
-					alt: "TMU Year End Show Peak installation",
+					alt: "Installation Peak light and material design",
 					intrinsicWidth: 900,
 					intrinsicHeight: 675
 				}
@@ -1239,6 +1236,7 @@
 		const mobilePersonalGrid = document.getElementById("mobile-personal-grid");
 		const floatingPreview = document.getElementById("floating-image-preview");
 		const floatingPreviewImage = floatingPreview.querySelector("img");
+		const resumeLinks = document.querySelectorAll(".resume-protected-link");
 		const swatchStrip = document.querySelector(".swatch-strip");
 		const swatchChips = Array.from(document.querySelectorAll(".swatch-chip"));
 		const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
@@ -1467,6 +1465,22 @@
 					video.play().catch(() => {});
 				});
 			};
+
+			resumeLinks.forEach((link) => {
+				link.addEventListener("click", (event) => {
+					if (sessionStorage.getItem("resumeAccess") === "granted") return;
+
+					event.preventDefault();
+					const password = window.prompt("Enter password to view resume:");
+
+					if (password === "zhang1") {
+						sessionStorage.setItem("resumeAccess", "granted");
+						window.open(link.href, "_blank", "noopener,noreferrer");
+					} else if (password !== null) {
+						window.alert("Incorrect password.");
+					}
+				});
+			});
 
 		const closeOpenPanels = () => {
 			portfolioIndex.classList.remove("panel-open", "work-open", "personal-open");

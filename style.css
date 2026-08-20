@@ -634,25 +634,6 @@ h3 {
 	gap: 0.16rem;
 }
 
-.work-index-thumbnail {
-	display: block;
-	width: min(89.1%, 17.08rem);
-	margin: 0 auto 0.38rem;
-	aspect-ratio: 1 / 1;
-	overflow: hidden;
-	pointer-events: none;
-}
-
-.work-index-thumbnail video {
-	display: block;
-	width: 100%;
-	height: 100%;
-	object-fit: contain;
-	object-position: center;
-	filter: grayscale(8%) saturate(88%) contrast(96%) brightness(101%);
-	opacity: 0.92;
-}
-
 .work-main strong {
 	font-size: inherit;
 	color: var(--ink);
@@ -663,6 +644,7 @@ h3 {
 .work-main em {
 	display: block;
 	max-width: 31rem;
+	text-transform: lowercase;
 }
 
 .work-discipline {
@@ -751,6 +733,7 @@ h3 {
 	margin-top: 0.16rem;
 	color: var(--muted);
 	font-size: 0.66rem;
+	text-transform: lowercase;
 }
 
 .archive-row time {
